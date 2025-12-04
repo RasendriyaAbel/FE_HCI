@@ -1,0 +1,48 @@
+.explore-jobs-page {
+  min-height: 100vh;
+  background-color: #E3F2FD;
+  display: flex;
+  flex-direction: column;
+}
+
+.explore-jobs-content {
+  flex: 1;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.jobs-container {
+  width: 100%;
+  max-width: 1200px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.jobs-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 2rem 0;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .explore-jobs-content {
+    padding: 1rem 0.5rem;
+  }
+
+  .jobs-container {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .jobs-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+

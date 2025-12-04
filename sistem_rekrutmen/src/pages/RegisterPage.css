@@ -1,0 +1,242 @@
+.register-page {
+  min-height: 100vh;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+.register-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-vector-bg {
+  width: 80%;
+  max-width: 1200px;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.register-container {
+  width: 100%;
+  max-width: 500px;
+  z-index: 1;
+  position: relative;
+}
+
+.register-form {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.register-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.register-logo-img {
+  height: 120px;
+  width: auto;
+  object-fit: contain;
+}
+
+.register-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.register-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  text-align: center;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.register-form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: #E3F2FD;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.7rem 0.875rem 0.7rem 3.25rem;
+  border: 2px solid #E3F2FD;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  color: #333;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #4A90E2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.form-input::placeholder {
+  color: #999;
+}
+
+.register-button {
+  width: 100%;
+  padding: 0.75rem 2rem;
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 0.25rem;
+}
+
+.register-button:hover {
+  background-color: #357ABD;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+.register-button:active {
+  transform: translateY(0);
+}
+
+.login-link {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.5rem 0 0 0;
+  line-height: 1.2;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.login-link-text {
+  color: #1a237e;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-link-text:hover {
+  color: #4A90E2;
+  text-decoration: underline;
+}
+
+.register-footer {
+  position: absolute;
+  bottom: 1rem;
+  text-align: center;
+  width: 100%;
+  z-index: 1;
+}
+
+.register-footer p {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .register-page {
+    padding: 1.5rem 1rem;
+  }
+
+  .register-form {
+    padding: 2rem 1.5rem;
+  }
+
+  .register-title {
+    font-size: 1.75rem;
+  }
+
+  .register-logo-img {
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-form {
+    padding: 1.5rem 1rem;
+  }
+
+  .register-title {
+    font-size: 1.5rem;
+  }
+
+  .register-subtitle {
+    font-size: 0.9rem;
+  }
+}
+

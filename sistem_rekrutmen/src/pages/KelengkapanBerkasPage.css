@@ -1,0 +1,303 @@
+.kb-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #e8f6ff;
+  font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.kb-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px 40px;
+}
+
+.kb-card {
+  width: 100%;
+  max-width: 1040px;
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 28px 32px 32px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.kb-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.kb-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.kb-subtitle {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.kb-steps {
+  display: flex;
+  gap: 16px;
+  margin: 18px 0 20px;
+}
+
+.kb-step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #d1e5ff;
+  background-color: #f3f8ff;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.kb-step-active {
+  background-color: #1998ff;
+  border-color: #1998ff;
+  color: #ffffff;
+}
+
+.kb-step-number {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #1998ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.kb-step-active .kb-step-number {
+  background-color: #ffffff;
+  color: #1998ff;
+}
+
+.kb-step-text {
+  font-weight: 600;
+}
+
+.kb-section {
+  margin-top: 18px;
+}
+
+.kb-section-title {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.kb-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid #d1e5ff;
+  background-color: #f9fcff;
+}
+
+.kb-profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffb648, #ff8a48);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.kb-profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.kb-profile-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.kb-profile-email {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.kb-motivation-input {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #d1e5ff;
+  padding: 10px 14px;
+  font-size: 13px;
+  resize: vertical;
+  min-height: 90px;
+  outline: none;
+}
+
+.kb-motivation-input::placeholder {
+  color: #9ca3af;
+}
+
+.kb-motivation-input:focus {
+  border-color: #1998ff;
+  box-shadow: 0 0 0 1px rgba(25, 152, 255, 0.2);
+}
+
+.kb-documents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kb-document-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kb-doc-label {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.kb-doc-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 16px;
+  border: 1px solid #d1e5ff;
+  background-color: #f9fcff;
+}
+
+.kb-doc-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kb-doc-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background-color: #1998ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kb-doc-icon-line {
+  width: 15px;
+  height: 20px;
+  border-radius: 3px;
+  border: 2px solid #ffffff;
+  border-top-width: 4px;
+}
+
+.kb-doc-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.kb-doc-filename {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.kb-doc-meta {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.kb-doc-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.kb-doc-view-button,
+.kb-doc-change-button {
+  border-radius: 999px;
+  border: none;
+  padding: 7px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.kb-doc-view-button {
+  background-color: #1998ff;
+  color: #ffffff;
+}
+
+.kb-doc-change-button {
+  background-color: #ffffff;
+  color: #1998ff;
+  border: 1px solid #1998ff;
+}
+
+.kb-next-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+
+.kb-next-button {
+  border-radius: 999px;
+  border: none;
+  padding: 10px 36px;
+  background: linear-gradient(90deg, #1998ff, #0f7bff);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(25, 152, 255, 0.45);
+}
+
+.kb-next-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(25, 152, 255, 0.55);
+}
+
+@media (max-width: 768px) {
+  .kb-content {
+    padding: 20px 12px 32px;
+  }
+
+  .kb-card {
+    padding: 20px 18px 26px;
+    border-radius: 18px;
+  }
+
+  .kb-doc-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .kb-doc-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+
