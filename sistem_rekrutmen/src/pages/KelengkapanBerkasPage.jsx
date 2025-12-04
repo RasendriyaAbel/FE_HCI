@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/explore/Header';
 import Footer from '../components/landing/Footer';
 import './KelengkapanBerkasPage.css';
 
 function KelengkapanBerkasPage() {
+  const navigate = useNavigate();
   const documents = [
     { label: 'Pakta Integritas', fileName: 'Pakta_RasendriyaAbel.pdf' },
     { label: 'Transkrip Nilai', fileName: 'Transkrip_RasendriyaAbel.pdf' },
@@ -91,7 +93,11 @@ function KelengkapanBerkasPage() {
           </section>
 
           <div className="kb-next-row">
-            <button type="button" className="kb-next-button">
+            <button
+              type="button"
+              className="kb-next-button"
+              onClick={() => navigate('/lamaran/review')}
+            >
               Selanjutnya
             </button>
           </div>
