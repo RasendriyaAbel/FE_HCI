@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getApplicationRoute } from '../../utils/applicationStatus';
-import { isLoggedIn } from '../../utils/auth';
+import { isLoggedIn, logout, getUserData } from '../../utils/auth';
 import LoginRequiredModal from '../LoginRequiredModal';
 import logoImage from '../../assets/gambar/logo.png';
 import './Header.css';
@@ -9,9 +9,12 @@ import './Header.css';
 function Header() {
   const [activeButton, setActiveButton] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
   const lamaranRoute = getApplicationRoute();
+  const userData = getUserData();
 
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
@@ -20,7 +23,7 @@ function Header() {
 
   const handleNavClick = (e, path) => {
     // Cek apakah path memerlukan login
-    const protectedPaths = ['/lamaran', '/profile'];
+    const protectedPaths = ['/lamaran', '/profile', '/lowongan'];
     const requiresLogin = protectedPaths.some(protectedPath => 
       path && path.startsWith(protectedPath)
     );
@@ -34,8 +37,39 @@ function Header() {
     return true;
   };
 
+  const handleProfileClick = (e) => {
+    e.stopPropagation();
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setShowDropdown(false);
+    navigate('/');
+    // Reload page untuk update state
+    window.location.reload();
+  };
+
+  // Close dropdown ketika klik di luar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDropdown]);
+
   const isLamaranActive = location.pathname.startsWith('/lamaran');
   const isAboutActive = location.pathname === '/tentang-kami';
+  const userName = userData?.name || 'Rasendriya Abel';
 
   return (
     <header className="header">
@@ -51,6 +85,7 @@ function Header() {
           <Link 
             to="/lowongan" 
             className={`nav-link ${location.pathname === '/lowongan' ? 'active' : ''}`}
+            onClick={(e) => handleNavClick(e, '/lowongan')}
           >
             Eksplor Lowongan
           </Link>
@@ -70,9 +105,26 @@ function Header() {
         </nav>
         
         <div className="header-actions">
-          <div className="user-profile">
+          <div 
+            className="user-profile" 
+            onClick={handleProfileClick}
+            ref={dropdownRef}
+            style={{ position: 'relative', cursor: 'pointer' }}
+          >
             <div className="user-icon">👤</div>
-            <span className="user-name">Rasendriya Abel</span>
+            <span className="user-name">{userName}</span>
+            
+            {showDropdown && (
+              <div className="user-dropdown">
+                <button 
+                  type="button"
+                  className="dropdown-logout-btn"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

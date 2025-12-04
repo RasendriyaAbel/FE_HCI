@@ -6,10 +6,10 @@ function Testimonial() {
 
   const testimonials = [
     {
-      name: 'Mr. I Made Warsa, SH',
-      position: 'Director',
+      name: 'Mr. John Doe',
+      position: 'Human Resources Development',
       image: '👨‍💼',
-      quote: 'Di PT Andal Aman Abadi, kami percaya bahwa kesuksesan datang dari kerja sama tim yang solid, inovasi yang berkelanjutan, dan integritas dalam setiap langkah. Kami berkomitmen untuk menciptakan lingkungan di mana setiap individu dapat berkembang dan mencapai potensi terbaik mereka. Bergabunglah dengan kami dan jadilah bagian dari perjalanan menuju keunggulan bersama.'
+      quote: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
     }
   ];
 

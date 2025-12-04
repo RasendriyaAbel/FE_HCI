@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import gambarLanding from '../../assets/gambar/gambar_landing.png';
 import './Hero.css';
 
@@ -12,9 +13,9 @@ function Hero() {
           <p className="hero-subtitle">
             Bersama kita membangun potensi mulai dari awal hingga akhir yang tak terbatas
           </p>
-          <button className="hero-cta">
+          <Link to="/lowongan" className="hero-cta">
             Eksplor Lowongan Kami
-          </button>
+          </Link>
         </div>
         <div className="hero-image">
           <img src={gambarLanding} alt="Team" className="hero-image-img" />

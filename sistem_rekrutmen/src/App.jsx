@@ -18,8 +18,22 @@ function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/lowongan" element={<ExploreJobsPage />} />
-      <Route path="/lowongan/:id" element={<DetailLowonganPage />} />
+      <Route 
+        path="/lowongan" 
+        element={
+          <ProtectedRoute>
+            <ExploreJobsPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/lowongan/:id" 
+        element={
+          <ProtectedRoute>
+            <DetailLowonganPage />
+          </ProtectedRoute>
+        } 
+      />
       <Route 
         path="/profile" 
         element={

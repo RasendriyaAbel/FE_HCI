@@ -19,7 +19,7 @@ function Header() {
 
   const handleNavClick = (e, path) => {
     // Cek apakah path memerlukan login
-    const protectedPaths = ['/lamaran', '/profile'];
+    const protectedPaths = ['/lamaran', '/profile', '/lowongan'];
     const requiresLogin = protectedPaths.some(protectedPath => 
       path && path.startsWith(protectedPath)
     );
@@ -45,7 +45,13 @@ function Header() {
         
         <nav className="nav-menu">
           <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Beranda</Link>
-          <Link to="/lowongan" className={`nav-link ${location.pathname === '/lowongan' ? 'active' : ''}`}>Eksplor Lowongan</Link>
+          <Link 
+            to="/lowongan" 
+            className={`nav-link ${location.pathname === '/lowongan' ? 'active' : ''}`}
+            onClick={(e) => handleNavClick(e, '/lowongan')}
+          >
+            Eksplor Lowongan
+          </Link>
           <Link 
             to={lamaranRoute} 
             className={`nav-link ${isLamaranActive ? 'active' : ''}`}
