@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setApplicationStatus, APPLICATION_STEPS } from '../utils/applicationStatus';
 import Header from '../components/explore/Header';
 import Footer from '../components/landing/Footer';
 import './ReviewLamaranPage.css';
@@ -20,6 +21,8 @@ function ReviewLamaranPage() {
   const handleConfirmApply = () => {
     setShowConfirm(false);
     setShowSuccess(true);
+    // Set status ke submitted ketika user konfirmasi
+    setApplicationStatus(APPLICATION_STEPS.SUBMITTED);
   };
 
   const handleGoToStatus = () => {
@@ -115,7 +118,10 @@ function ReviewLamaranPage() {
             <button
               type="button"
               className="rl-back-button"
-              onClick={() => navigate('/lamaran/kelengkapan-berkas')}
+              onClick={() => {
+                setApplicationStatus(APPLICATION_STEPS.KELENGKAPAN_BERKAS);
+                navigate('/lamaran/kelengkapan-berkas');
+              }}
             >
               Kembali
             </button>

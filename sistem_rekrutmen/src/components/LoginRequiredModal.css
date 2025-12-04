@@ -1,0 +1,167 @@
+.login-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.login-modal {
+  background-color: #ffffff;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.login-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.login-modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  font-family: 'Poppins', 'Montserrat', sans-serif;
+}
+
+.login-modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  transition: color 0.2s ease;
+  border-radius: 4px;
+}
+
+.login-modal-close:hover {
+  color: #111827;
+  background-color: #f3f4f6;
+}
+
+.login-modal-body {
+  padding: 32px 28px;
+  text-align: center;
+}
+
+.login-modal-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.login-modal-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4b5563;
+  margin: 0;
+  font-family: 'Poppins', 'Montserrat', sans-serif;
+}
+
+.login-modal-actions {
+  display: flex;
+  gap: 12px;
+  padding: 20px 28px 28px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.login-modal-secondary,
+.login-modal-primary {
+  flex: 1;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  font-family: 'Poppins', 'Montserrat', sans-serif;
+}
+
+.login-modal-secondary {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.login-modal-secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.login-modal-primary {
+  background: linear-gradient(90deg, #1998ff, #0f7bff);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(25, 152, 255, 0.3);
+}
+
+.login-modal-primary:hover {
+  background: linear-gradient(90deg, #0f7bff, #0d6efd);
+  box-shadow: 0 6px 16px rgba(25, 152, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.login-modal-primary:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .login-modal {
+    width: 95%;
+    margin: 20px;
+  }
+
+  .login-modal-header {
+    padding: 20px 24px;
+  }
+
+  .login-modal-body {
+    padding: 24px 20px;
+  }
+
+  .login-modal-actions {
+    flex-direction: column;
+    padding: 20px 24px 24px;
+  }
+
+  .login-modal-secondary,
+  .login-modal-primary {
+    width: 100%;
+  }
+}
+

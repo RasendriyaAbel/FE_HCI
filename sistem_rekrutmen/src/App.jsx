@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -8,6 +9,7 @@ import ProfilePage from './pages/ProfilePage';
 import KelengkapanBerkasPage from './pages/KelengkapanBerkasPage';
 import ReviewLamaranPage from './pages/ReviewLamaranPage';
 import StatusLamaranPage from './pages/StatusLamaranPage';
+import AboutPage from './pages/AboutPage';
 import './App.css';
 
 function App() {
@@ -18,10 +20,39 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/lowongan" element={<ExploreJobsPage />} />
       <Route path="/lowongan/:id" element={<DetailLowonganPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/lamaran/kelengkapan-berkas" element={<KelengkapanBerkasPage />} />
-      <Route path="/lamaran/review" element={<ReviewLamaranPage />} />
-      <Route path="/lamaran/status" element={<StatusLamaranPage />} />
+      <Route 
+        path="/profile" 
+        element={
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/lamaran/kelengkapan-berkas" 
+        element={
+          <ProtectedRoute>
+            <KelengkapanBerkasPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/lamaran/review" 
+        element={
+          <ProtectedRoute>
+            <ReviewLamaranPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/lamaran/status" 
+        element={
+          <ProtectedRoute>
+            <StatusLamaranPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route path="/tentang-kami" element={<AboutPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

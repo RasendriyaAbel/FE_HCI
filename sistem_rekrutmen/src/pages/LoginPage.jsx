@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { setLoginStatus } from '../utils/auth';
 import logoImage from '../assets/gambar/logo.png';
 import vectorLogin from '../assets/gambar/vector_login.png';
 import './LoginPage.css';
@@ -23,7 +24,11 @@ function LoginPage() {
     
     // Validasi sederhana: email dan password harus terisi
     if (formData.email.trim() !== '' && formData.password.trim() !== '') {
-      // Login berhasil - arahkan kembali ke landing page
+      // Login berhasil - simpan status login
+      setLoginStatus(true, {
+        email: formData.email,
+        name: 'Rasendriya Abel' // Default name, bisa diambil dari response API
+      });
       console.log('Login berhasil:', formData);
       navigate('/');
     } else {

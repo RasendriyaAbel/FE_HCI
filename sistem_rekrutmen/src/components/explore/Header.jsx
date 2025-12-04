@@ -1,16 +1,41 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { getApplicationRoute } from '../../utils/applicationStatus';
+import { isLoggedIn } from '../../utils/auth';
+import LoginRequiredModal from '../LoginRequiredModal';
 import logoImage from '../../assets/gambar/logo.png';
 import './Header.css';
 
 function Header() {
   const [activeButton, setActiveButton] = useState(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const lamaranRoute = getApplicationRoute();
 
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
     setTimeout(() => setActiveButton(null), 200);
   };
+
+  const handleNavClick = (e, path) => {
+    // Cek apakah path memerlukan login
+    const protectedPaths = ['/lamaran', '/profile'];
+    const requiresLogin = protectedPaths.some(protectedPath => 
+      path && path.startsWith(protectedPath)
+    );
+    
+    if (requiresLogin && !isLoggedIn()) {
+      e.preventDefault();
+      e.stopPropagation();
+      setShowLoginModal(true);
+      return false;
+    }
+    return true;
+  };
+
+  const isLamaranActive = location.pathname.startsWith('/lamaran');
+  const isAboutActive = location.pathname === '/tentang-kami';
 
   return (
     <header className="header">
@@ -29,8 +54,19 @@ function Header() {
           >
             Eksplor Lowongan
           </Link>
-          <a href="#lamaran" className="nav-link">Lamaran</a>
-          <a href="#tentang" className="nav-link">Tentang Kami</a>
+          <Link 
+            to={lamaranRoute} 
+            className={`nav-link ${isLamaranActive ? 'active' : ''}`}
+            onClick={(e) => handleNavClick(e, lamaranRoute)}
+          >
+            Lamaran
+          </Link>
+          <Link 
+            to="/tentang-kami" 
+            className={`nav-link ${isAboutActive ? 'active' : ''}`}
+          >
+            Tentang Kami
+          </Link>
         </nav>
         
         <div className="header-actions">
@@ -40,6 +76,11 @@ function Header() {
           </div>
         </div>
       </div>
+      
+      <LoginRequiredModal 
+        isOpen={showLoginModal} 
+        onClose={() => setShowLoginModal(false)} 
+      />
     </header>
   );
 }

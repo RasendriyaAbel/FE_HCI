@@ -1,10 +1,16 @@
 import { useNavigate } from 'react-router-dom';
+import { setApplicationStatus, APPLICATION_STEPS } from '../utils/applicationStatus';
 import Header from '../components/explore/Header';
 import Footer from '../components/landing/Footer';
 import './KelengkapanBerkasPage.css';
 
 function KelengkapanBerkasPage() {
   const navigate = useNavigate();
+
+  const handleNext = () => {
+    setApplicationStatus(APPLICATION_STEPS.REVIEW);
+    navigate('/lamaran/review');
+  };
   const documents = [
     { label: 'Pakta Integritas', fileName: 'Pakta_RasendriyaAbel.pdf' },
     { label: 'Transkrip Nilai', fileName: 'Transkrip_RasendriyaAbel.pdf' },
@@ -96,7 +102,7 @@ function KelengkapanBerkasPage() {
             <button
               type="button"
               className="kb-next-button"
-              onClick={() => navigate('/lamaran/review')}
+              onClick={handleNext}
             >
               Selanjutnya
             </button>

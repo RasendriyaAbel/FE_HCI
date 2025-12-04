@@ -1,14 +1,24 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { isLoggedIn } from '../utils/auth';
+import { setApplicationStatus, APPLICATION_STEPS } from '../utils/applicationStatus';
+import LoginRequiredModal from '../components/LoginRequiredModal';
 import Header from '../components/explore/Header';
 import Footer from '../components/landing/Footer';
 import './DetailLowonganPage.css';
 
 function DetailLowonganPage() {
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const navigate = useNavigate();
 
   const handleApplyClick = () => {
+    // Cek apakah user sudah login
+    if (!isLoggedIn()) {
+      setShowLoginModal(true);
+      return;
+    }
+    // Jika sudah login, tampilkan modal konfirmasi
     setShowConfirm(true);
   };
 
@@ -23,6 +33,7 @@ function DetailLowonganPage() {
 
   const handleContinueApplication = () => {
     setShowConfirm(false);
+    setApplicationStatus(APPLICATION_STEPS.KELENGKAPAN_BERKAS);
     navigate('/lamaran/kelengkapan-berkas');
   };
 
@@ -59,7 +70,18 @@ function DetailLowonganPage() {
             >
               Lamar Sekarang
             </button>
-            <button type="button" className="detail-save-button">
+            <button 
+              type="button" 
+              className="detail-save-button"
+              onClick={() => {
+                if (!isLoggedIn()) {
+                  setShowLoginModal(true);
+                } else {
+                  // Logic untuk simpan lowongan
+                  alert('Lowongan berhasil disimpan!');
+                }
+              }}
+            >
               Simpan Lowongan Kerja
             </button>
           </div>
@@ -159,6 +181,11 @@ function DetailLowonganPage() {
           </div>
         </div>
       )}
+
+      <LoginRequiredModal 
+        isOpen={showLoginModal} 
+        onClose={() => setShowLoginModal(false)} 
+      />
 
       <Footer />
     </div>
