@@ -1,39 +1,81 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { setLoginStatus } from '../utils/auth';
+import { validateLogin } from '../utils/userStorage';
 import logoImage from '../assets/gambar/logo.png';
 import vectorLogin from '../assets/gambar/vector_login.png';
 import './LoginPage.css';
 
 function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    // Cek jika ada message dari register page
+    if (location.state?.message) {
+      setSuccessMessage(location.state.message);
+      // Clear message setelah 5 detik
+      const timer = setTimeout(() => setSuccessMessage(''), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Clear error ketika user mulai mengetik
+    if (error) setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
     
-    // Validasi sederhana: email dan password harus terisi
-    if (formData.email.trim() !== '' && formData.password.trim() !== '') {
-      // Login berhasil - simpan status login
+    // Validasi form
+    if (!formData.email.trim() || !formData.password.trim()) {
+      setError('Mohon isi email dan password terlebih dahulu');
+      setLoading(false);
+      return;
+    }
+
+    // Validasi format email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError('Format email tidak valid');
+      setLoading(false);
+      return;
+    }
+
+    // Simulasi delay untuk UX
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Validasi login
+    const result = validateLogin(formData.email, formData.password);
+    
+    if (result.success) {
+      // Login berhasil - simpan status login dengan data user
       setLoginStatus(true, {
-        email: formData.email,
-        name: 'Rasendriya Abel' // Default name, bisa diambil dari response API
+        email: result.user.email,
+        name: result.user.namaLengkap || result.user.name || 'User',
+        id: result.user.id
       });
-      console.log('Login berhasil:', formData);
+      
+      // Redirect ke home
       navigate('/');
     } else {
-      // Jika form kosong, tampilkan alert (opsional)
-      alert('Mohon isi email dan password terlebih dahulu');
+      setError(result.message || 'Email atau password salah');
+      setLoading(false);
     }
   };
 
@@ -85,24 +127,57 @@ function LoginPage() {
                   </svg>
                 </div>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
-                  className="form-input"
+                  className={`form-input ${error && error.includes('password') ? 'input-error' : ''}`}
                   placeholder="Masukkan Password anda disini"
                   value={formData.password}
                   onChange={handleChange}
                   required
                 />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Sembunyikan password' : 'Tampilkan password'}
+                >
+                  {showPassword ? '👁️' : '👁️‍🗨️'}
+                </button>
               </div>
             </div>
+
+            {successMessage && (
+              <div className="success-message">
+                <span className="success-icon">✅</span>
+                <span>{successMessage}</span>
+              </div>
+            )}
+
+            {error && (
+              <div className="error-message">
+                <span className="error-icon">⚠️</span>
+                <span>{error}</span>
+              </div>
+            )}
 
             <div className="form-footer">
               <a href="#forgot" className="forgot-password">Lupa Password?</a>
             </div>
 
-            <button type="submit" className="login-button">
-              Masuk
+            <button 
+              type="submit" 
+              className={`login-button ${loading ? 'loading' : ''}`}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner"></span>
+                  Memproses...
+                </>
+              ) : (
+                'Masuk'
+              )}
             </button>
 
             <p className="register-link">
@@ -120,4 +195,5 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
 

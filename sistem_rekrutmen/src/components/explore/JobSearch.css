@@ -3,10 +3,11 @@
 }
 
 .search-section {
-  border: 2px solid #E3F2FD;
-  border-radius: 12px;
+  border: 2px solid #4A90E2;
+  border-radius: 16px;
   padding: 1.5rem;
   background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.1);
 }
 
 .search-form {
@@ -109,6 +110,17 @@
   flex-wrap: wrap;
 }
 
+.filter-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.filter-dropdown-wrapper {
+  position: relative;
+}
+
 .filter-button {
   display: flex;
   align-items: center;
@@ -123,6 +135,7 @@
   font-family: 'Montserrat', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .filter-button:hover {
@@ -132,6 +145,90 @@
 
 .filter-button:active {
   transform: translateY(0);
+}
+
+.filter-button svg {
+  transition: transform 0.3s ease;
+}
+
+.filter-button svg.rotated {
+  transform: rotate(180deg);
+}
+
+.filter-button.active-filter {
+  background-color: #357ABD;
+  box-shadow: 0 2px 8px rgba(53, 122, 189, 0.3);
+}
+
+.filter-badge {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 4px;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.filter-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background-color: #ffffff;
+  border: 1px solid #E3F2FD;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 100;
+  overflow: hidden;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.dropdown-item:hover {
+  background-color: #f3f4f6;
+}
+
+.dropdown-item.active {
+  background-color: #E3F2FD;
+  color: #4A90E2;
+  font-weight: 600;
+}
+
+.dropdown-item.clear {
+  border-top: 1px solid #E3F2FD;
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.dropdown-item.clear:hover {
+  background-color: #fef2f2;
 }
 
 .filters-right {

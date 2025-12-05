@@ -6,37 +6,40 @@
 
 .job-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.5rem;
   padding: 1.5rem;
   background-color: #ffffff;
   border: 2px solid #E3F2FD;
-  border-radius: 12px;
+  border-radius: 16px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .job-card:hover {
   border-color: #4A90E2;
-  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
-  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.2);
+  transform: translateY(-3px);
 }
 
 .job-card-left {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   flex-shrink: 0;
+  min-width: 80px;
 }
 
 .job-icon {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
-  border-radius: 8px;
+  background-color: #333333;
+  border-radius: 50%;
+  padding: 12px;
 }
 
 .job-icon svg {
@@ -44,67 +47,90 @@
   height: 100%;
 }
 
+.job-icon svg path {
+  fill: white;
+}
+
 .job-icon-label {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 700;
   color: #333;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
-  line-height: 1.2;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+  max-width: 80px;
+  word-wrap: break-word;
 }
 
 .job-card-center {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  align-items: flex-start;
+  text-align: left;
+  min-width: 0;
 }
 
 .job-title {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  color: #333;
+  color: #111827;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  line-height: 1.5;
+  line-height: 1.4;
+  text-align: left;
 }
 
 .job-location {
   font-size: 0.95rem;
-  color: #666;
+  color: #6b7280;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
+  text-align: left;
+  font-weight: 500;
 }
 
 .job-dates {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  margin-top: 0.5rem;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+  width: 100%;
+  align-items: flex-start;
 }
 
 .job-upload-date {
-  font-size: 0.85rem;
-  color: #4CAF50;
+  font-size: 0.875rem;
+  color: #16a34a;
   font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
+  font-weight: 500;
+  text-align: left;
 }
 
 .job-closing-date {
-  font-size: 0.85rem;
-  color: #F44336;
+  font-size: 0.875rem;
+  color: #dc2626;
   font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
+  font-weight: 500;
+  text-align: left;
 }
 
 .job-card-right {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.25rem;
 }
 
 .job-detail-button {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   background-color: #4A90E2;
   border: none;
   border-radius: 50%;
@@ -113,11 +139,13 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
 }
 
 .job-detail-button:hover {
   background-color: #357ABD;
-  transform: scale(1.1);
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
 }
 
 .job-detail-button:active {
@@ -126,35 +154,43 @@
 
 @media (max-width: 768px) {
   .job-card {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.25rem;
     padding: 1.25rem;
   }
 
   .job-card-left {
-    flex-direction: row;
-    width: 100%;
-    justify-content: flex-start;
+    flex-direction: column;
+    min-width: 70px;
   }
 
   .job-icon {
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .job-icon-label {
+    font-size: 0.65rem;
+    max-width: 70px;
   }
 
   .job-card-center {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
   }
 
   .job-card-right {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+    margin-top: 0;
+  }
+
+  .job-detail-button {
+    width: 48px;
+    height: 48px;
   }
 
   .job-title {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
   }
 
   .job-location {
@@ -164,11 +200,27 @@
 
 @media (max-width: 480px) {
   .job-card {
-    padding: 1rem;
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+  }
+
+  .job-card-left {
+    min-width: 60px;
+  }
+
+  .job-icon {
+    width: 48px;
+    height: 48px;
+    padding: 10px;
+  }
+
+  .job-icon-label {
+    font-size: 0.6rem;
+    max-width: 60px;
   }
 
   .job-title {
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
 
   .job-location {
@@ -179,5 +231,33 @@
   .job-closing-date {
     font-size: 0.8rem;
   }
+
+  .job-detail-button {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+.no-jobs-message {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #E3F2FD;
+}
+
+.no-jobs-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.no-jobs-subtext {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 

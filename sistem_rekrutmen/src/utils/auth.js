@@ -29,6 +29,9 @@ export const setLoginStatus = (status, userData = null) => {
   } else {
     localStorage.removeItem(AUTH_KEY);
     localStorage.removeItem(USER_KEY);
+    // Clear current user dari userStorage juga
+    const { clearCurrentUser } = require('./userStorage');
+    clearCurrentUser();
   }
 };
 

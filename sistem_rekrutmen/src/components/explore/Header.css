@@ -172,6 +172,38 @@
   border-radius: 0 12px 12px 0;
 }
 
+.dropdown-profile-link {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: transparent;
+  text-decoration: none;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-profile-link:hover {
+  background-color: #f3f4f6;
+  color: #4A90E2;
+}
+
+.dropdown-profile-link:active {
+  background-color: #e5e7eb;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 4px 0;
+}
+
 .dropdown-logout-btn {
   width: 100%;
   padding: 12px 20px;

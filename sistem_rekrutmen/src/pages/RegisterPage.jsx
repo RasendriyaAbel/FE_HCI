@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { saveUser } from '../utils/userStorage';
 import logoImage from '../assets/gambar/logo.png';
 import vectorLogin from '../assets/gambar/vector_login.png';
 import './RegisterPage.css';
@@ -12,36 +13,90 @@ function RegisterPage() {
     password: '',
     konfirmasiPassword: ''
   });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Clear error untuk field ini
+    if (errors[e.target.name]) {
+      setErrors({
+        ...errors,
+        [e.target.name]: ''
+      });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.namaLengkap.trim()) {
+      newErrors.namaLengkap = 'Nama lengkap harus diisi';
+    } else if (formData.namaLengkap.trim().length < 3) {
+      newErrors.namaLengkap = 'Nama lengkap minimal 3 karakter';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email harus diisi';
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        newErrors.email = 'Format email tidak valid';
+      }
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Password harus diisi';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password minimal 6 karakter';
+    }
+
+    if (!formData.konfirmasiPassword) {
+      newErrors.konfirmasiPassword = 'Konfirmasi password harus diisi';
+    } else if (formData.password !== formData.konfirmasiPassword) {
+      newErrors.konfirmasiPassword = 'Password dan konfirmasi password tidak cocok';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validasi sederhana: semua field harus terisi
-    if (
-      formData.namaLengkap.trim() !== '' &&
-      formData.email.trim() !== '' &&
-      formData.password.trim() !== '' &&
-      formData.konfirmasiPassword.trim() !== ''
-    ) {
-      // Validasi password match
-      if (formData.password !== formData.konfirmasiPassword) {
-        alert('Password dan Konfirmasi Password tidak cocok');
-        return;
-      }
-      
-      // Register berhasil - arahkan ke login page
-      console.log('Register berhasil:', formData);
-      navigate('/login');
+    if (!validateForm()) {
+      return;
+    }
+
+    setLoading(true);
+
+    // Simulasi delay untuk UX
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Simpan user
+    const result = saveUser({
+      namaLengkap: formData.namaLengkap.trim(),
+      email: formData.email.trim(),
+      password: formData.password,
+      name: formData.namaLengkap.trim() // Alias untuk kompatibilitas
+    });
+
+    setLoading(false);
+
+    if (result.success) {
+      // Register berhasil - arahkan ke login page dengan pesan sukses
+      navigate('/login', { 
+        state: { 
+          message: 'Registrasi berhasil! Silakan login dengan akun Anda.' 
+        } 
+      });
     } else {
-      // Jika form kosong, tampilkan alert
-      alert('Mohon isi semua field terlebih dahulu');
+      setErrors({ email: result.message || 'Gagal mendaftar' });
     }
   };
 
@@ -74,13 +129,16 @@ function RegisterPage() {
                   type="text"
                   id="namaLengkap"
                   name="namaLengkap"
-                  className="form-input"
+                  className={`form-input ${errors.namaLengkap ? 'input-error' : ''}`}
                   placeholder="Masukkan Nama Lengkap anda disini"
                   value={formData.namaLengkap}
                   onChange={handleChange}
                   required
                 />
               </div>
+              {errors.namaLengkap && (
+                <span className="field-error">{errors.namaLengkap}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -96,13 +154,16 @@ function RegisterPage() {
                   type="email"
                   id="email"
                   name="email"
-                  className="form-input"
+                  className={`form-input ${errors.email ? 'input-error' : ''}`}
                   placeholder="Masukkan Email anda disini"
                   value={formData.email}
                   onChange={handleChange}
                   required
                 />
               </div>
+              {errors.email && (
+                <span className="field-error">{errors.email}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -115,16 +176,27 @@ function RegisterPage() {
                   </svg>
                 </div>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
-                  className="form-input"
+                  className={`form-input ${errors.password ? 'input-error' : ''}`}
                   placeholder="Masukkan Password anda disini"
                   value={formData.password}
                   onChange={handleChange}
                   required
                 />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Sembunyikan password' : 'Tampilkan password'}
+                >
+                  {showPassword ? '👁️' : '👁️‍🗨️'}
+                </button>
               </div>
+              {errors.password && (
+                <span className="field-error">{errors.password}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -137,20 +209,42 @@ function RegisterPage() {
                   </svg>
                 </div>
                 <input
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
                   id="konfirmasiPassword"
                   name="konfirmasiPassword"
-                  className="form-input"
+                  className={`form-input ${errors.konfirmasiPassword ? 'input-error' : ''}`}
                   placeholder="Masukkan Ulang Password anda disini"
                   value={formData.konfirmasiPassword}
                   onChange={handleChange}
                   required
                 />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  aria-label={showConfirmPassword ? 'Sembunyikan password' : 'Tampilkan password'}
+                >
+                  {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
+                </button>
               </div>
+              {errors.konfirmasiPassword && (
+                <span className="field-error">{errors.konfirmasiPassword}</span>
+              )}
             </div>
 
-            <button type="submit" className="register-button">
-              Masuk
+            <button 
+              type="submit" 
+              className={`register-button ${loading ? 'loading' : ''}`}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner"></span>
+                  Memproses...
+                </>
+              ) : (
+                'Daftar'
+              )}
             </button>
 
             <p className="login-link">
