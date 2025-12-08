@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import Header from '../components/explore/Header';
 import Footer from '../components/landing/Footer';
 import { saveProfileData, getProfileData } from '../utils/profileStorage';
 import { getUserData } from '../utils/auth';
+import { getLastViewedJob } from '../utils/jobStorage';
 import './ProfilePage.css';
 
 function ProfilePage() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('data-pribadi');
+  const [showSaveConfirmation, setShowSaveConfirmation] = useState(false);
 
   useEffect(() => {
     // Check if there's a tab parameter in URL
@@ -83,7 +86,8 @@ function ProfilePage() {
     };
     saveProfileData(profileData);
     setSaveMessage('Data pribadi berhasil disimpan!');
-    setTimeout(() => setSaveMessage(''), 3000);
+    // Tampilkan popup konfirmasi setelah simpan
+    setShowSaveConfirmation(true);
   };
 
   const handleSaveDocuments = () => {
@@ -93,7 +97,23 @@ function ProfilePage() {
     };
     saveProfileData(profileData);
     setSaveMessage('Dokumen berhasil disimpan!');
-    setTimeout(() => setSaveMessage(''), 3000);
+    // Tampilkan popup konfirmasi setelah simpan
+    setShowSaveConfirmation(true);
+  };
+
+  const handleGoToLastJob = () => {
+    setShowSaveConfirmation(false);
+    const lastJob = getLastViewedJob();
+    if (lastJob && lastJob.url) {
+      navigate(lastJob.url);
+    } else {
+      navigate('/lowongan');
+    }
+  };
+
+  const handleGoToHome = () => {
+    setShowSaveConfirmation(false);
+    navigate('/');
   };
 
   return (
@@ -344,6 +364,38 @@ function ProfilePage() {
           </section>
         </section>
       </main>
+
+      {showSaveConfirmation && (
+        <div className="profile-modal-backdrop" onClick={() => setShowSaveConfirmation(false)}>
+          <div
+            className="profile-modal"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <h3 className="profile-modal-title">Data Berhasil Disimpan</h3>
+            <p className="profile-modal-text">
+              Data profil Anda telah berhasil disimpan. Apakah Anda ingin kembali ke halaman lowongan terakhir atau kembali ke beranda?
+            </p>
+            <div className="profile-modal-actions">
+              <button
+                type="button"
+                className="profile-modal-secondary"
+                onClick={handleGoToHome}
+              >
+                Kembali ke Beranda
+              </button>
+              <button
+                type="button"
+                className="profile-modal-primary"
+                onClick={handleGoToLastJob}
+              >
+                Kembali ke Lowongan
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

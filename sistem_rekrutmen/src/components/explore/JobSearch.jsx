@@ -112,16 +112,16 @@ function JobSearch({
         <div className="search-filters">
           <div className="filters-left">
             <span className="jobs-count">{totalJobs} POSISI TERSEDIA</span>
-            <div className="filter-buttons">
+              <div className="filter-buttons">
               <div className="filter-dropdown-wrapper" ref={locationRef}>
-                <button 
-                  type="button"
+                  <button 
+                    type="button"
                   className={`filter-button ${locationFilter ? 'active-filter' : ''}`}
                   onClick={() => {
                     setShowLocationDropdown(!showLocationDropdown);
                     setShowWorkplaceDropdown(false);
                   }}
-                >
+                  >
                   Lokasi
                   {locationFilter && <span className="filter-badge">{locationFilter}</span>}
                   <svg 
@@ -132,8 +132,8 @@ function JobSearch({
                     xmlns="http://www.w3.org/2000/svg"
                     className={showLocationDropdown ? 'rotated' : ''}
                   >
-                    <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                      <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                 </button>
                 {showLocationDropdown && (
                   <div className="filter-dropdown">
@@ -145,8 +145,8 @@ function JobSearch({
                         onClick={() => handleLocationSelect(loc)}
                       >
                         {loc}
-                      </button>
-                    ))}
+                  </button>
+                ))}
                     {locationFilter && (
                       <button
                         type="button"
@@ -203,8 +203,8 @@ function JobSearch({
                         Hapus Filter
                       </button>
                     )}
-                  </div>
-                )}
+              </div>
+            )}
               </div>
             </div>
           </div>
@@ -221,10 +221,10 @@ function JobSearch({
                   <path d="M7 10L12 15L17 10" stroke="#4A90E2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.3"/>
                 </svg>
               ) : (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7 10L12 15L17 10" stroke="#4A90E2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 10L12 15L17 10" stroke="#4A90E2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   <path d="M7 13L12 8L17 13" stroke="#4A90E2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.3"/>
-                </svg>
+              </svg>
               )}
             </button>
           </div>

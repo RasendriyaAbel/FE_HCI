@@ -433,4 +433,138 @@
   }
 }
 
+/* Modal Styles */
+.profile-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.profile-modal {
+  width: 100%;
+  max-width: 420px;
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 22px 24px 20px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.profile-modal-title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  text-align: left;
+}
+
+.profile-modal-text {
+  margin: 0 0 18px;
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.profile-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.profile-modal-primary,
+.profile-modal-secondary {
+  border-radius: 999px;
+  border: none;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease,
+    box-shadow 0.1s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.profile-modal-primary {
+  background: linear-gradient(90deg, #1998ff, #0f7bff);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(25, 152, 255, 0.45);
+}
+
+.profile-modal-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(25, 152, 255, 0.55);
+}
+
+.profile-modal-primary:active {
+  transform: translateY(0);
+}
+
+.profile-modal-secondary {
+  background-color: #ffffff;
+  color: #1998ff;
+  border: 1px solid #1998ff;
+}
+
+.profile-modal-secondary:hover {
+  background-color: #e8f4ff;
+}
+
+.profile-modal-secondary:active {
+  background-color: #d1e7ff;
+}
+
+/* Responsive Modal */
+@media (max-width: 480px) {
+  .profile-modal {
+    max-width: 90%;
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .profile-modal-title {
+    font-size: 16px;
+  }
+
+  .profile-modal-text {
+    font-size: 13px;
+  }
+
+  .profile-modal-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .profile-modal-primary,
+  .profile-modal-secondary {
+    width: 100%;
+    padding: 10px 18px;
+  }
+}
+
 

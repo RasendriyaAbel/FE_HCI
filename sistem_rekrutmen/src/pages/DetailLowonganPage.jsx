@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { isLoggedIn } from '../utils/auth';
 import { setApplicationStatus, APPLICATION_STEPS } from '../utils/applicationStatus';
 import { isProfileComplete } from '../utils/profileStorage';
+import { saveLastViewedJob } from '../utils/jobStorage';
 import LoginRequiredModal from '../components/LoginRequiredModal';
 import Header from '../components/explore/Header';
 import Footer from '../components/landing/Footer';
@@ -13,6 +14,7 @@ function DetailLowonganPage() {
   const { id } = useParams();
   const [showConfirm, setShowConfirm] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showProfileIncompleteModal, setShowProfileIncompleteModal] = useState(false);
   const [job, setJob] = useState(null);
   const navigate = useNavigate();
 
@@ -20,6 +22,12 @@ function DetailLowonganPage() {
     const jobData = getJobById(id);
     if (jobData) {
       setJob(jobData);
+      // Simpan lowongan terakhir yang dilihat
+      saveLastViewedJob({
+        id: jobData.id,
+        title: jobData.title,
+        url: `/lowongan/${jobData.id}`
+      });
     } else {
       navigate('/lowongan', { replace: true });
     }
@@ -47,8 +55,8 @@ function DetailLowonganPage() {
     
     // Cek apakah profile sudah lengkap
     if (!isProfileComplete()) {
-      // Jika profile belum lengkap, langsung redirect ke profile
-      navigate('/profile');
+      // Jika profile belum lengkap, tampilkan modal
+      setShowProfileIncompleteModal(true);
       return;
     }
     
@@ -69,6 +77,11 @@ function DetailLowonganPage() {
     setShowConfirm(false);
     setApplicationStatus(APPLICATION_STEPS.KELENGKAPAN_BERKAS);
     navigate('/lamaran/kelengkapan-berkas');
+  };
+
+  const handleGoToProfileFromModal = () => {
+    setShowProfileIncompleteModal(false);
+    navigate('/profile');
   };
 
   return (
@@ -188,6 +201,39 @@ function DetailLowonganPage() {
                 onClick={handleContinueApplication}
               >
                 Ya, Lanjutkan
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showProfileIncompleteModal && (
+        <div className="detail-modal-backdrop" onClick={() => setShowProfileIncompleteModal(false)}>
+          <div
+            className="detail-modal"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <h3 className="detail-modal-title">Profil Belum Lengkap</h3>
+            <p className="detail-modal-text">
+              Untuk dapat melamar lowongan, Anda harus melengkapi profil terlebih dahulu. 
+              Silakan isi data pribadi dan dokumen yang diperlukan di halaman profil.
+            </p>
+            <div className="detail-modal-actions">
+              <button
+                type="button"
+                className="detail-modal-secondary"
+                onClick={() => setShowProfileIncompleteModal(false)}
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                className="detail-modal-primary"
+                onClick={handleGoToProfileFromModal}
+              >
+                Lengkapi Profil
               </button>
             </div>
           </div>
