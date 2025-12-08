@@ -5,6 +5,7 @@ import Footer from '../components/landing/Footer';
 import { saveProfileData, getProfileData } from '../utils/profileStorage';
 import { getUserData } from '../utils/auth';
 import { getLastViewedJob } from '../utils/jobStorage';
+import { autoFillData, generateDummyFile, dummyDocumentFiles } from '../utils/autoFillData';
 import './ProfilePage.css';
 
 function ProfilePage() {
@@ -76,6 +77,21 @@ function ProfilePage() {
           file: file // Store file object for later use
         }
       }));
+    }
+  };
+
+  // Auto-fill handler untuk input fields
+  const handleAutoFill = (field, value) => {
+    if (!personalData[field] || personalData[field] === '') {
+      handlePersonalDataChange(field, value);
+    }
+  };
+
+  // Auto-fill handler untuk dokumen
+  const handleAutoFillDocument = (docLabel) => {
+    if (!documents[docLabel] || !documents[docLabel].fileName) {
+      const dummyFile = generateDummyFile(dummyDocumentFiles[docLabel] || `${docLabel.toLowerCase().replace(/\s+/g, '_')}.pdf`);
+      handleDocumentUpload(docLabel, dummyFile);
     }
   };
 
@@ -190,6 +206,7 @@ function ProfilePage() {
                       rows={6}
                       value={personalData.tentangSaya}
                       onChange={(e) => handlePersonalDataChange('tentangSaya', e.target.value)}
+                      onClick={() => handleAutoFill('tentangSaya', autoFillData.profile.tentangSaya)}
                     />
                   </div>
 
@@ -203,6 +220,7 @@ function ProfilePage() {
                       type="text"
                       value={personalData.namaLengkap}
                       onChange={(e) => handlePersonalDataChange('namaLengkap', e.target.value)}
+                      onClick={() => handleAutoFill('namaLengkap', autoFillData.profile.namaLengkap)}
                     />
                   </div>
 
@@ -218,6 +236,7 @@ function ProfilePage() {
                         placeholder="dd/mm/yyyy"
                         value={personalData.tanggalLahir}
                         onChange={(e) => handlePersonalDataChange('tanggalLahir', e.target.value)}
+                        onClick={() => handleAutoFill('tanggalLahir', autoFillData.profile.tanggalLahir)}
                       />
                     </div>
                     <div className="profile-field-group">
@@ -229,6 +248,7 @@ function ProfilePage() {
                         className="profile-input profile-select"
                         value={personalData.jenisKelamin}
                         onChange={(e) => handlePersonalDataChange('jenisKelamin', e.target.value)}
+                        onClick={() => !personalData.jenisKelamin && handleAutoFill('jenisKelamin', autoFillData.profile.jenisKelamin)}
                       >
                         <option value="" disabled>
                           Pilih jenis kelamin anda...
@@ -249,6 +269,7 @@ function ProfilePage() {
                       type="email"
                       value={personalData.email}
                       onChange={(e) => handlePersonalDataChange('email', e.target.value)}
+                      onClick={() => handleAutoFill('email', autoFillData.profile.email)}
                     />
                   </div>
 
@@ -263,6 +284,7 @@ function ProfilePage() {
                       placeholder="Tuliskan alamat tempat tinggal yang anda tempati sekarang.."
                       value={personalData.alamatTinggal}
                       onChange={(e) => handlePersonalDataChange('alamatTinggal', e.target.value)}
+                      onClick={() => handleAutoFill('alamatTinggal', autoFillData.profile.alamatTinggal)}
                     />
                   </div>
 
@@ -277,6 +299,7 @@ function ProfilePage() {
                       placeholder="Tuliskan alamat tempat tinggal asal anda.."
                       value={personalData.alamatDomisili}
                       onChange={(e) => handlePersonalDataChange('alamatDomisili', e.target.value)}
+                      onClick={() => handleAutoFill('alamatDomisili', autoFillData.profile.alamatDomisili)}
                     />
                   </div>
 
@@ -330,7 +353,16 @@ function ProfilePage() {
                                   : 'Dokumen belum diunggah'}
                               </span>
                             </div>
-                            <label className="profile-doc-upload-button" style={{ cursor: 'pointer' }}>
+                            <label 
+                              className="profile-doc-upload-button" 
+                              style={{ cursor: 'pointer' }}
+                              onClick={(e) => {
+                                if (!docData || !docData.fileName) {
+                                  e.preventDefault();
+                                  handleAutoFillDocument(label);
+                                }
+                              }}
+                            >
                               {docData && docData.fileName ? 'Ganti File' : 'Upload File'}
                               <input
                                 type="file"

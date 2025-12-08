@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { saveUser } from '../utils/userStorage';
+import { autoFillData } from '../utils/autoFillData';
 import logoImage from '../assets/gambar/logo.png';
 import vectorLogin from '../assets/gambar/vector_login.png';
 import './RegisterPage.css';
@@ -29,6 +30,16 @@ function RegisterPage() {
         ...errors,
         [e.target.name]: ''
       });
+    }
+  };
+
+  // Auto-fill handler
+  const handleAutoFill = (field) => {
+    if (!formData[field] || formData[field] === '') {
+      setFormData(prev => ({
+        ...prev,
+        [field]: autoFillData.register[field]
+      }));
     }
   };
 
@@ -133,6 +144,7 @@ function RegisterPage() {
                   placeholder="Masukkan Nama Lengkap anda disini"
                   value={formData.namaLengkap}
                   onChange={handleChange}
+                  onClick={() => handleAutoFill('namaLengkap')}
                   required
                 />
               </div>
@@ -158,6 +170,7 @@ function RegisterPage() {
                   placeholder="Masukkan Email anda disini"
                   value={formData.email}
                   onChange={handleChange}
+                  onClick={() => handleAutoFill('email')}
                   required
                 />
               </div>
@@ -183,6 +196,7 @@ function RegisterPage() {
                   placeholder="Masukkan Password anda disini"
                   value={formData.password}
                   onChange={handleChange}
+                  onClick={() => handleAutoFill('password')}
                   required
                 />
                 <button
@@ -216,6 +230,7 @@ function RegisterPage() {
                   placeholder="Masukkan Ulang Password anda disini"
                   value={formData.konfirmasiPassword}
                   onChange={handleChange}
+                  onClick={() => handleAutoFill('konfirmasiPassword')}
                   required
                 />
                 <button

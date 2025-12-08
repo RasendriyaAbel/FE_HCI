@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { setLoginStatus } from '../utils/auth';
 import { validateLogin } from '../utils/userStorage';
+import { autoFillData } from '../utils/autoFillData';
 import logoImage from '../assets/gambar/logo.png';
 import vectorLogin from '../assets/gambar/vector_login.png';
 import './LoginPage.css';
@@ -35,6 +36,16 @@ function LoginPage() {
     });
     // Clear error ketika user mulai mengetik
     if (error) setError('');
+  };
+
+  // Auto-fill handler
+  const handleAutoFill = (field) => {
+    if (!formData[field] || formData[field] === '') {
+      setFormData(prev => ({
+        ...prev,
+        [field]: autoFillData.login[field]
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -112,6 +123,7 @@ function LoginPage() {
                   placeholder="Masukkan Email anda disini"
                   value={formData.email}
                   onChange={handleChange}
+                  onClick={() => handleAutoFill('email')}
                   required
                 />
               </div>
@@ -134,6 +146,7 @@ function LoginPage() {
                   placeholder="Masukkan Password anda disini"
                   value={formData.password}
                   onChange={handleChange}
+                  onClick={() => handleAutoFill('password')}
                   required
                 />
                 <button

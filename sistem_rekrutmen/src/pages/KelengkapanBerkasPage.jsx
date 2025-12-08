@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { setApplicationStatus, APPLICATION_STEPS } from '../utils/applicationStatus';
 import { getPersonalData, getDocumentsData } from '../utils/profileStorage';
 import { getUserData } from '../utils/auth';
+import { autoFillData } from '../utils/autoFillData';
 import Header from '../components/explore/Header';
 import Footer from '../components/landing/Footer';
 import './KelengkapanBerkasPage.css';
@@ -96,6 +97,11 @@ function KelengkapanBerkasPage() {
               rows={4}
               value={motivation}
               onChange={(e) => setMotivation(e.target.value)}
+              onClick={() => {
+                if (!motivation || motivation === '') {
+                  setMotivation(autoFillData.motivation);
+                }
+              }}
             />
           </section>
 
