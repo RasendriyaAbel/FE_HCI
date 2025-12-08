@@ -167,13 +167,22 @@
   color: #6b7280;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
   .sl-content {
     padding: 28px 16px 36px;
   }
 
   .sl-layout {
     grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .sl-summary-card {
+    order: 2;
+  }
+
+  .sl-status-card {
+    order: 1;
   }
 
   .sl-timeline-wrapper {
@@ -181,9 +190,111 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .sl-content {
+    padding: 20px 12px 28px;
+  }
+
+  .sl-summary-card {
+    padding: 20px;
+  }
+
   .sl-status-card {
-    padding: 18px 18px 22px;
+    padding: 20px;
+  }
+
+  .sl-status-title {
+    font-size: 1.25rem;
+  }
+
+  .sl-timeline-wrapper {
+    padding: 16px;
+  }
+
+  .sl-timeline {
+    gap: 20px;
+  }
+
+  .sl-timeline-item {
+    gap: 12px;
+  }
+
+  .sl-step-title {
+    font-size: 0.95rem;
+  }
+
+  .sl-step-description {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sl-content {
+    padding: 16px 8px 24px;
+  }
+
+  .sl-summary-card {
+    padding: 16px;
+  }
+
+  .sl-avatar-circle {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .sl-name {
+    font-size: 0.95rem;
+  }
+
+  .sl-email {
+    font-size: 0.8rem;
+  }
+
+  .sl-position-title {
+    font-size: 0.9rem;
+  }
+
+  .sl-position-meta {
+    font-size: 0.8rem;
+  }
+
+  .sl-status-badge {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .sl-status-card {
+    padding: 16px;
+  }
+
+  .sl-status-title {
+    font-size: 1.1rem;
+  }
+
+  .sl-timeline-wrapper {
+    padding: 12px;
+  }
+
+  .sl-timeline {
+    gap: 16px;
+  }
+
+  .sl-timeline-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .sl-timeline-line {
+    width: 1.5px;
+  }
+
+  .sl-step-title {
+    font-size: 0.9rem;
+  }
+
+  .sl-step-description {
+    font-size: 0.8rem;
   }
 }
 

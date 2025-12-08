@@ -10,6 +10,7 @@ function Header() {
   const [activeButton, setActiveButton] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -40,6 +41,16 @@ function Header() {
   const handleProfileClick = (e) => {
     e.stopPropagation();
     setShowDropdown(!showDropdown);
+  };
+
+  const handleMobileMenuToggle = () => {
+    setShowMobileMenu(!showMobileMenu);
+  };
+
+  const handleMobileNavClick = (e, path) => {
+    if (handleNavClick(e, path)) {
+      setShowMobileMenu(false);
+    }
   };
 
   const handleProfileLinkClick = () => {
@@ -83,27 +94,42 @@ function Header() {
           <img src={logoImage} alt="TRIPLE Logo" className="logo-image" />
         </Link>
         
-        <nav className="nav-menu">
-          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
+        <button 
+          className="mobile-menu-toggle"
+          onClick={handleMobileMenuToggle}
+          aria-label="Toggle menu"
+        >
+          <span className={`hamburger-line ${showMobileMenu ? 'active' : ''}`}></span>
+          <span className={`hamburger-line ${showMobileMenu ? 'active' : ''}`}></span>
+          <span className={`hamburger-line ${showMobileMenu ? 'active' : ''}`}></span>
+        </button>
+        
+        <nav className={`nav-menu ${showMobileMenu ? 'mobile-open' : ''}`}>
+          <Link 
+            to="/" 
+            className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+            onClick={() => setShowMobileMenu(false)}
+          >
             Beranda
           </Link>
           <Link 
             to="/lowongan" 
             className={`nav-link ${location.pathname === '/lowongan' ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, '/lowongan')}
+            onClick={(e) => handleMobileNavClick(e, '/lowongan')}
           >
             Eksplor Lowongan
           </Link>
           <Link 
             to={lamaranRoute} 
             className={`nav-link ${isLamaranActive ? 'active' : ''}`}
-            onClick={(e) => handleNavClick(e, lamaranRoute)}
+            onClick={(e) => handleMobileNavClick(e, lamaranRoute)}
           >
             Lamaran
           </Link>
           <Link 
             to="/tentang-kami" 
             className={`nav-link ${isAboutActive ? 'active' : ''}`}
+            onClick={() => setShowMobileMenu(false)}
           >
             Tentang Kami
           </Link>

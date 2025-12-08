@@ -14,5 +14,26 @@
   color: #666;
   font-size: 1rem;
   margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.5rem 1rem;
+  }
+
+  .footer-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 1rem 0.75rem;
+  }
+
+  .footer-text {
+    font-size: 0.85rem;
+  }
 }
 

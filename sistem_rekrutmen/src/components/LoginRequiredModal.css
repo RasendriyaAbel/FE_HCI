@@ -140,28 +140,76 @@
   transform: translateY(0);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .login-modal {
-    width: 95%;
-    margin: 20px;
+    width: 90%;
+    max-width: 420px;
   }
 
   .login-modal-header {
     padding: 20px 24px;
   }
 
+  .login-modal-title {
+    font-size: 18px;
+  }
+
   .login-modal-body {
     padding: 24px 20px;
   }
 
+  .login-modal-text {
+    font-size: 14px;
+  }
+
+  .login-modal-actions {
+    padding: 18px 24px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-modal {
+    width: 95%;
+    margin: 16px;
+    max-width: calc(100% - 32px);
+  }
+
+  .login-modal-header {
+    padding: 18px 20px;
+  }
+
+  .login-modal-title {
+    font-size: 16px;
+  }
+
+  .login-modal-body {
+    padding: 20px 16px;
+  }
+
+  .login-modal-icon {
+    margin-bottom: 16px;
+  }
+
+  .login-modal-icon svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .login-modal-text {
+    font-size: 13px;
+  }
+
   .login-modal-actions {
     flex-direction: column;
-    padding: 20px 24px 24px;
+    padding: 18px 20px 20px;
+    gap: 10px;
   }
 
   .login-modal-secondary,
   .login-modal-primary {
     width: 100%;
+    padding: 10px 20px;
+    font-size: 13px;
   }
 }
 

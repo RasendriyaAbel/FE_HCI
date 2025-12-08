@@ -156,5 +156,58 @@
   .testimonial-quote {
     font-size: 1rem;
   }
+
+  .testimonial-name {
+    font-size: 1rem;
+  }
+
+  .testimonial-position {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonial {
+    padding: 2rem 1rem;
+  }
+
+  .testimonial-container {
+    gap: 0.75rem;
+  }
+
+  .testimonial-content {
+    gap: 1rem;
+  }
+
+  .image-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+
+  .person-avatar {
+    font-size: 3rem;
+  }
+
+  .testimonial-card {
+    padding: 1.25rem;
+  }
+
+  .testimonial-quote {
+    font-size: 0.9rem;
+  }
+
+  .testimonial-name {
+    font-size: 0.95rem;
+  }
+
+  .testimonial-position {
+    font-size: 0.85rem;
+  }
+
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
 }
 

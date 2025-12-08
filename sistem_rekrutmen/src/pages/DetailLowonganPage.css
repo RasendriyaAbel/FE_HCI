@@ -348,6 +348,115 @@
   .detail-section-title {
     font-size: 18px;
   }
+
+  .detail-modal {
+    margin: 16px;
+    max-width: calc(100% - 32px);
+  }
+}
+
+@media (max-width: 480px) {
+  .detail-lowongan-content {
+    padding: 16px 8px 24px;
+  }
+
+  .detail-lowongan-card {
+    padding: 20px 16px 28px;
+    border-radius: 16px;
+  }
+
+  .detail-lowongan-header {
+    gap: 12px;
+  }
+
+  .detail-job-title {
+    font-size: 20px;
+  }
+
+  .detail-job-meta {
+    font-size: 0.85rem;
+  }
+
+  .detail-job-upload,
+  .detail-job-closing {
+    font-size: 0.8rem;
+  }
+
+  .detail-job-badge {
+    font-size: 0.85rem;
+    padding: 6px 14px;
+  }
+
+  .detail-lowongan-actions {
+    gap: 8px;
+  }
+
+  .detail-apply-button,
+  .detail-save-button {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    min-height: 40px;
+  }
+
+  .detail-section-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .detail-requirements-box {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .detail-document-item {
+    font-size: 0.85rem;
+    padding-left: 20px;
+  }
+
+  .detail-description-box {
+    padding: 16px;
+    font-size: 0.85rem;
+  }
+
+  .detail-description-box p {
+    margin-bottom: 12px;
+  }
+
+  .detail-description-box ol {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+
+  .detail-description-box li {
+    margin-bottom: 6px;
+  }
+
+  .detail-modal {
+    margin: 12px;
+    padding: 18px 16px;
+    max-width: calc(100% - 24px);
+    border-radius: 16px;
+  }
+
+  .detail-modal-title {
+    font-size: 16px;
+  }
+
+  .detail-modal-text {
+    font-size: 0.85rem;
+  }
+
+  .detail-modal-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .detail-modal-primary,
+  .detail-modal-secondary {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
 }
 
 

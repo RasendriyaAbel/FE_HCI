@@ -288,6 +288,23 @@
     border-radius: 18px;
   }
 
+  .kb-title {
+    font-size: 1.25rem;
+  }
+
+  .kb-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .kb-steps {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .kb-step {
+    width: 100%;
+  }
+
   .kb-doc-card {
     flex-direction: column;
     align-items: flex-start;
@@ -297,6 +314,103 @@
   .kb-doc-actions {
     width: 100%;
     justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .kb-doc-view-button,
+  .kb-doc-change-button {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .kb-next-row {
+    justify-content: center;
+  }
+
+  .kb-next-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kb-content {
+    padding: 16px 8px 24px;
+  }
+
+  .kb-card {
+    padding: 16px 12px 20px;
+    border-radius: 16px;
+  }
+
+  .kb-title {
+    font-size: 1.1rem;
+  }
+
+  .kb-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .kb-step {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .kb-step-number {
+    width: 20px;
+    height: 20px;
+    font-size: 0.85rem;
+  }
+
+  .kb-section-title {
+    font-size: 0.95rem;
+  }
+
+  .kb-profile-card {
+    padding: 12px;
+  }
+
+  .kb-profile-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .kb-profile-name {
+    font-size: 0.9rem;
+  }
+
+  .kb-profile-email {
+    font-size: 0.8rem;
+  }
+
+  .kb-doc-card {
+    padding: 12px;
+  }
+
+  .kb-doc-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .kb-doc-filename {
+    font-size: 0.85rem;
+  }
+
+  .kb-doc-meta {
+    font-size: 0.75rem;
+  }
+
+  .kb-doc-view-button,
+  .kb-doc-change-button {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    width: 100%;
+  }
+
+  .kb-next-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
   }
 }
 
