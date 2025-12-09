@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - master
   workflow_dispatch:
 
 permissions:
@@ -18,95 +19,35 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./sistem_rekrutmen
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
           cache: 'npm'
           cache-dependency-path: sistem_rekrutmen/package-lock.json
-      
+
       - name: Install dependencies
-        working-directory: sistem_rekrutmen
         run: npm ci
-      
-      - name: Extract repository name
-        id: repo
-        run: |
-          # Extract repository name from github.repository (format: owner/repo-name)
-          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
-          echo "name=$REPO_NAME" >> $GITHUB_OUTPUT
-          echo "::notice::Repository name: $REPO_NAME"
-          echo "::notice::Full repository: ${{ github.repository }}"
-          echo "Repository name extracted: $REPO_NAME"
-          echo "Full repository: ${{ github.repository }}"
-      
+
       - name: Build
-        working-directory: sistem_rekrutmen
+        run: npm run build
         env:
-          GITHUB_PAGES: 'true'
-          GITHUB_REPOSITORY_NAME: ${{ steps.repo.outputs.name }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-        run: |
-          echo "=== Build Environment Variables ==="
-          echo "GITHUB_PAGES=$GITHUB_PAGES"
-          echo "GITHUB_REPOSITORY_NAME=$GITHUB_REPOSITORY_NAME"
-          echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
-          echo "==================================="
-          npm run build:github
-      
+          VITE_BASE_PATH: /FE_HCI/
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      
-      - name: Verify build output
-        working-directory: sistem_rekrutmen
-        run: |
-          echo "=== Verifying Build Output ==="
-          echo "Current directory: $(pwd)"
-          echo "Listing dist/ directory:"
-          ls -la dist/ || echo "dist/ directory not found!"
-          echo ""
-          echo "Checking for required files:"
-          if [ -f "dist/index.html" ]; then
-            echo "✓ index.html found"
-            echo "First 10 lines of index.html:"
-            head -10 dist/index.html
-          else
-            echo "✗ index.html NOT found!"
-            echo "Contents of dist/:"
-            ls -la dist/ || echo "dist/ is empty or doesn't exist"
-            exit 1
-          fi
-          echo ""
-          if [ -f "dist/404.html" ]; then
-            echo "✓ 404.html found"
-          else
-            echo "⚠ 404.html not found (GitHub Pages will use default)"
-          fi
-          echo ""
-          echo "Checking base path in index.html:"
-          if grep -q "/FE_HCI/" dist/index.html 2>/dev/null || grep -q 'base="/FE_HCI/"' dist/index.html 2>/dev/null; then
-            echo "✓ Base path /FE_HCI/ detected in build"
-          else
-            echo "⚠ Base path might not be set correctly"
-          fi
-          echo "=============================="
-      
-      - name: List files before upload
-        working-directory: sistem_rekrutmen
-        run: |
-          echo "=== Files to be uploaded ==="
-          find dist -type f | head -20
-          echo "Total files: $(find dist -type f | wc -l)"
-          echo "==========================="
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: sistem_rekrutmen/dist
+          path: './sistem_rekrutmen/dist'
 
   deploy:
     environment:
