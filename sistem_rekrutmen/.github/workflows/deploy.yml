@@ -38,7 +38,19 @@ jobs:
         working-directory: sistem_rekrutmen
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
-        run: npm run build
+        run: |
+          echo "Building with base path: /${{ github.event.repository.name }}/"
+          npm run build
+
+      - name: Copy index.html to 404.html for GitHub Pages routing
+        working-directory: sistem_rekrutmen
+        run: |
+          cp dist/index.html dist/404.html
+          echo "Copied index.html to 404.html"
+          # Ensure .nojekyll exists
+          touch dist/.nojekyll
+          echo "Created .nojekyll file"
+          ls -la dist/ | head -20
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
