@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 // Konfigurasi untuk GitHub Pages
-// Base path akan otomatis diset berdasarkan nama repository saat build
+// Base path untuk repository FE_HCI
 function getBasePath() {
   // Cek environment variable dari GitHub Actions
   const repoName = process.env.GITHUB_REPOSITORY_NAME
@@ -49,4 +49,9 @@ console.log('===============================')
 export default defineConfig({
   plugins: [react()],
   base: basePath,
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true,
+  },
 })

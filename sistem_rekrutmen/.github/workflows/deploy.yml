@@ -64,19 +64,44 @@ jobs:
       - name: Verify build output
         working-directory: sistem_rekrutmen
         run: |
-          echo "Checking build output..."
-          ls -la dist/
+          echo "=== Verifying Build Output ==="
+          echo "Current directory: $(pwd)"
+          echo "Listing dist/ directory:"
+          ls -la dist/ || echo "dist/ directory not found!"
+          echo ""
+          echo "Checking for required files:"
           if [ -f "dist/index.html" ]; then
             echo "✓ index.html found"
+            echo "First 10 lines of index.html:"
+            head -10 dist/index.html
           else
             echo "✗ index.html NOT found!"
+            echo "Contents of dist/:"
+            ls -la dist/ || echo "dist/ is empty or doesn't exist"
             exit 1
           fi
+          echo ""
           if [ -f "dist/404.html" ]; then
             echo "✓ 404.html found"
           else
-            echo "⚠ 404.html not found (will be created by GitHub Pages)"
+            echo "⚠ 404.html not found (GitHub Pages will use default)"
           fi
+          echo ""
+          echo "Checking base path in index.html:"
+          if grep -q "/FE_HCI/" dist/index.html 2>/dev/null || grep -q 'base="/FE_HCI/"' dist/index.html 2>/dev/null; then
+            echo "✓ Base path /FE_HCI/ detected in build"
+          else
+            echo "⚠ Base path might not be set correctly"
+          fi
+          echo "=============================="
+      
+      - name: List files before upload
+        working-directory: sistem_rekrutmen
+        run: |
+          echo "=== Files to be uploaded ==="
+          find dist -type f | head -20
+          echo "Total files: $(find dist -type f | wc -l)"
+          echo "==========================="
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
