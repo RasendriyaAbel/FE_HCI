@@ -36,20 +36,47 @@ jobs:
       - name: Extract repository name
         id: repo
         run: |
+          # Extract repository name from github.repository (format: owner/repo-name)
           REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
           echo "name=$REPO_NAME" >> $GITHUB_OUTPUT
-          echo "Repository name: $REPO_NAME"
+          echo "::notice::Repository name: $REPO_NAME"
+          echo "::notice::Full repository: ${{ github.repository }}"
+          echo "Repository name extracted: $REPO_NAME"
           echo "Full repository: ${{ github.repository }}"
       
       - name: Build
         working-directory: sistem_rekrutmen
-        run: npm run build:github
         env:
-          GITHUB_PAGES: true
+          GITHUB_PAGES: 'true'
           GITHUB_REPOSITORY_NAME: ${{ steps.repo.outputs.name }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          echo "=== Build Environment Variables ==="
+          echo "GITHUB_PAGES=$GITHUB_PAGES"
+          echo "GITHUB_REPOSITORY_NAME=$GITHUB_REPOSITORY_NAME"
+          echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
+          echo "==================================="
+          npm run build:github
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
+      
+      - name: Verify build output
+        working-directory: sistem_rekrutmen
+        run: |
+          echo "Checking build output..."
+          ls -la dist/
+          if [ -f "dist/index.html" ]; then
+            echo "✓ index.html found"
+          else
+            echo "✗ index.html NOT found!"
+            exit 1
+          fi
+          if [ -f "dist/404.html" ]; then
+            echo "✓ 404.html found"
+          else
+            echo "⚠ 404.html not found (will be created by GitHub Pages)"
+          fi
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
