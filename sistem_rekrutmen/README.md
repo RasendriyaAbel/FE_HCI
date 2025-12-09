@@ -62,6 +62,25 @@ Proyek ini sudah dikonfigurasi untuk deployment otomatis ke GitHub Pages menggun
 - Pastikan nama repository di GitHub sesuai dengan yang digunakan di workflow
 - Base path otomatis disesuaikan dengan nama repository
 - Jika menggunakan custom domain, update `vite.config.js` untuk mengubah base path
+- File `404.html` sudah dikonfigurasi untuk menangani routing React Router di GitHub Pages
+
+### Troubleshooting Error 404:
+
+Jika masih mendapatkan error 404 setelah deployment:
+
+1. **Pastikan GitHub Pages sudah diaktifkan:**
+   - Settings → Pages → Source: **GitHub Actions**
+
+2. **Cek workflow di tab Actions:**
+   - Pastikan workflow berhasil dijalankan tanpa error
+   - Jika ada error, perbaiki dan push ulang
+
+3. **Pastikan base path benar:**
+   - URL harus: `https://[username].github.io/[repository-name]/`
+   - Jangan lupa slash (/) di akhir URL
+
+4. **Clear cache browser:**
+   - Tekan Ctrl+Shift+R (Windows) atau Cmd+Shift+R (Mac) untuk hard refresh
 
 ## 📝 Scripts
 
