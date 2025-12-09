@@ -37,9 +37,9 @@ jobs:
       - name: Build
         working-directory: sistem_rekrutmen
         env:
-          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_BASE_PATH: /FE_HCI/
         run: |
-          echo "Building with base path: /${{ github.event.repository.name }}/"
+          echo "Building with base path: /FE_HCI/"
           npm run build
 
       - name: Copy index.html to 404.html for GitHub Pages routing
@@ -50,7 +50,14 @@ jobs:
           # Ensure .nojekyll exists
           touch dist/.nojekyll
           echo "Created .nojekyll file"
-          ls -la dist/ | head -20
+          echo "=== Files in dist directory ==="
+          ls -la dist/
+          echo "=== Checking index.html ==="
+          head -5 dist/index.html
+          echo "=== Checking 404.html ==="
+          head -5 dist/404.html
+          echo "=== Verifying .nojekyll ==="
+          test -f dist/.nojekyll && echo ".nojekyll exists" || echo ".nojekyll NOT FOUND"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
