@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
   workflow_dispatch:
 
 permissions:
@@ -22,46 +21,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
           cache-dependency-path: sistem_rekrutmen/package-lock.json
-
+      
       - name: Install dependencies
         working-directory: sistem_rekrutmen
         run: npm ci
-
+      
+      - name: Extract repository name
+        id: repo
+        run: |
+          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
+          echo "name=$REPO_NAME" >> $GITHUB_OUTPUT
+      
       - name: Build
         working-directory: sistem_rekrutmen
+        run: npm run build:github
         env:
-          VITE_BASE_PATH: /FE_HCI/
-        run: |
-          echo "Building with base path: /FE_HCI/"
-          npm run build
-
-      - name: Copy index.html to 404.html for GitHub Pages routing
-        working-directory: sistem_rekrutmen
-        run: |
-          cp dist/index.html dist/404.html
-          echo "Copied index.html to 404.html"
-          # Ensure .nojekyll exists
-          touch dist/.nojekyll
-          echo "Created .nojekyll file"
-          echo "=== Files in dist directory ==="
-          ls -la dist/
-          echo "=== Checking index.html ==="
-          head -5 dist/index.html
-          echo "=== Checking 404.html ==="
-          head -5 dist/404.html
-          echo "=== Verifying .nojekyll ==="
-          test -f dist/.nojekyll && echo ".nojekyll exists" || echo ".nojekyll NOT FOUND"
-
+          GITHUB_PAGES: true
+          GITHUB_REPOSITORY_NAME: ${{ steps.repo.outputs.name }}
+      
       - name: Setup Pages
         uses: actions/configure-pages@v4
-
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
