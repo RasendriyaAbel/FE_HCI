@@ -53,11 +53,29 @@ npm run preview
 ## Troubleshooting
 
 ### Routing tidak bekerja
-Pastikan base path di `vite.config.js` sesuai dengan nama repository Anda.
+- Pastikan base path di `vite.config.js` sesuai dengan nama repository Anda
+- Pastikan `BrowserRouter` menggunakan `basename` yang benar (sudah dikonfigurasi otomatis)
+- File `404.html` sudah dikonfigurasi untuk redirect ke `index.html`
 
 ### 404 Error
-GitHub Pages memerlukan file `index.html` di root. Pastikan build menghasilkan file tersebut di folder `dist/`.
+- Pastikan GitHub Pages sudah diaktifkan dengan source **GitHub Actions**
+- Pastikan workflow deployment sudah berjalan dan berhasil (cek di tab Actions)
+- Pastikan base path sesuai dengan nama repository (`/FE_HCI/` untuk repo `FE_HCI`)
+- File `404.html` sudah dikonfigurasi untuk menangani routing
 
 ### Assets tidak dimuat
-Pastikan semua path asset menggunakan path relatif atau base path yang benar.
+- Pastikan semua path asset menggunakan path relatif atau base path yang benar
+- Base path otomatis di-set oleh Vite berdasarkan konfigurasi di `vite.config.js`
+
+### Build gagal
+- Pastikan semua dependencies terinstall: `npm ci`
+- Cek log di GitHub Actions untuk detail error
+- Pastikan Node.js version sesuai (20.x)
+
+### Website masih menunjukkan 404 setelah deployment
+1. Tunggu beberapa menit untuk propagasi DNS
+2. Cek URL yang benar: `https://username.github.io/REPO_NAME/` (dengan trailing slash)
+3. Pastikan workflow deployment sudah selesai dan berhasil
+4. Clear cache browser atau coba di incognito mode
+5. Pastikan base path di `vite.config.js` sesuai dengan nama repository
 

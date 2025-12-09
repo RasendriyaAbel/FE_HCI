@@ -38,6 +38,8 @@ jobs:
         run: |
           REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
           echo "name=$REPO_NAME" >> $GITHUB_OUTPUT
+          echo "Repository name: $REPO_NAME"
+          echo "Full repository: ${{ github.repository }}"
       
       - name: Build
         working-directory: sistem_rekrutmen

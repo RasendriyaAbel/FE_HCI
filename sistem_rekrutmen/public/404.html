@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script>
+      // GitHub Pages 404 handler - redirect to index.html with base path
+      (function() {
+        const path = window.location.pathname;
+        // Extract base path from current location (e.g., /FE_HCI from /FE_HCI/some/path)
+        const segments = path.split('/').filter(Boolean);
+        let basePath = '';
+        
+        // If path starts with a segment (not root), use it as base path
+        if (segments.length > 0 && !path.startsWith('/' + segments[0] + '/index.html')) {
+          basePath = '/' + segments[0];
+        }
+        
+        const indexPath = basePath + '/index.html';
+        
+        // Only redirect if we're not already at index.html
+        if (!path.endsWith('/index.html') && path !== basePath + '/') {
+          window.location.replace(indexPath);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>
+
