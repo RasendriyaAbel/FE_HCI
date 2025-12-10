@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/FE_HCI/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>sistem_rekrutmen</title>
+    <script type="module" crossorigin src="/FE_HCI/assets/index-DBXkXav7.js"></script>
+    <link rel="stylesheet" crossorigin href="/FE_HCI/assets/index-BlpMG4vT.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Maze Testing Snippet -->
+    <script>
+      (function (m, a, z, e) {
+        var s, t, u, v;
+        try {
+          t = m.sessionStorage.getItem('maze-us');
+        } catch (err) {}
+
+        if (!t) {
+          t = new Date().getTime();
+          try {
+            m.sessionStorage.setItem('maze-us', t);
+          } catch (err) {}
+        }
+
+        u = document.currentScript || (function () {
+          var w = document.getElementsByTagName('script');
+          return w[w.length - 1];
+        })();
+        v = u && u.nonce;
+
+        s = a.createElement('script');
+        s.src = z + '?apiKey=' + e;
+        s.async = true;
+        if (v) s.setAttribute('nonce', v);
+        a.getElementsByTagName('head')[0].appendChild(s);
+
+        m.mazeUniversalSnippetApiKey = e;
+      })(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'accbd2a5-715c-4ec3-b470-f278943ff4b9');
+    </script>
+  </body>
+</html>

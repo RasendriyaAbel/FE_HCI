@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script>
+      // GitHub Pages 404 handler - redirect to index.html with base path
+      (function() {
+        const path = window.location.pathname;
+        // Extract base path from current location
+        // For FE_HCI repo: path will be like /FE_HCI/ or /FE_HCI/some/path
+        const segments = path.split('/').filter(Boolean);
+        let basePath = '';
+        
+        // If we have segments and first segment is not empty, it's likely the repo name
+        if (segments.length > 0) {
+          // Check if we're at a project site (not user site)
+          // User sites end with .github.io, project sites have repo name as first segment
+          const firstSegment = segments[0];
+          if (firstSegment && !firstSegment.includes('.')) {
+            basePath = '/' + firstSegment;
+          }
+        }
+        
+        // Construct index.html path
+        const indexPath = basePath + '/index.html';
+        
+        // Redirect to index.html (React Router will handle the routing)
+        if (path !== indexPath && !path.endsWith('/index.html')) {
+          window.location.replace(indexPath);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+    <script>
+      // Fallback: if redirect doesn't work, try after 1 second
+      setTimeout(function() {
+        const path = window.location.pathname;
+        const segments = path.split('/').filter(Boolean);
+        const basePath = segments.length > 0 ? '/' + segments[0] : '';
+        window.location.href = basePath + '/index.html';
+      }, 1000);
+    </script>
+  </body>
+</html>
+
