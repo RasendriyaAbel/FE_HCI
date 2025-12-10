@@ -1,8 +1,12 @@
 # Panduan Deployment ke GitHub Pages
 
-Proyek ini sudah dikonfigurasi untuk deployment otomatis ke GitHub Pages menggunakan GitHub Actions.
+Proyek ini mendukung dua metode deployment ke GitHub Pages:
+1. **GitHub Actions** (Otomatis) - Recommended
+2. **gh-pages** (Manual) - Alternatif
 
-## Langkah-langkah Deployment
+---
+
+## Metode 1: GitHub Actions (Otomatis) - Recommended
 
 ### 1. Aktifkan GitHub Pages di Repository
 
@@ -25,7 +29,48 @@ git push origin main
 
 1. Pergi ke tab **Actions** di repository GitHub Anda
 2. Tunggu workflow "Deploy to GitHub Pages" selesai
-3. Setelah selesai, website akan tersedia di: `https://username.github.io/REPO_NAME/`
+3. Setelah selesai, website akan tersedia di: `https://rasendriyaabel.github.io/FE_HCI/`
+
+---
+
+## Metode 2: gh-pages (Manual)
+
+### 1. Install gh-pages (Sudah Terinstall)
+
+Package `gh-pages` sudah terinstall di `devDependencies`. Jika belum:
+
+```bash
+npm install --save-dev gh-pages
+```
+
+### 2. Konfigurasi Sudah Siap
+
+Konfigurasi sudah dilakukan di:
+- `package.json`: Script `predeploy` dan `deploy` sudah ditambahkan
+- `package.json`: `homepage` sudah diset ke `https://rasendriyaabel.github.io/FE_HCI`
+- `vite.config.js`: Base path sudah diset ke `/FE_HCI/`
+
+### 3. Deploy
+
+```bash
+npm run deploy
+```
+
+Script ini akan:
+1. Menjalankan `predeploy` (build aplikasi)
+2. Deploy folder `dist/` ke branch `gh-pages`
+
+### 4. Aktifkan GitHub Pages
+
+1. Buka repository di GitHub
+2. Pergi ke **Settings** → **Pages**
+3. Di bagian **Source**, pilih **Deploy from a branch**
+4. Pilih branch: **gh-pages** → **/ (root)**
+5. Klik **Save**
+
+### 5. Website Tersedia
+
+Setelah beberapa menit, website akan tersedia di: `https://rasendriyaabel.github.io/FE_HCI/`
 
 ## Konfigurasi Base Path
 

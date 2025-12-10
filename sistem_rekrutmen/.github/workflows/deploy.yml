@@ -41,6 +41,19 @@ jobs:
         env:
           VITE_BASE_PATH: /FE_HCI/
 
+      - name: Verify build output
+        run: |
+          echo "=== Verifying Build Output ==="
+          ls -la dist/
+          if [ ! -f "dist/index.html" ]; then
+            echo "ERROR: index.html not found!"
+            exit 1
+          fi
+          echo "✓ index.html found"
+          echo "First few lines of index.html:"
+          head -5 dist/index.html
+          echo "=============================="
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

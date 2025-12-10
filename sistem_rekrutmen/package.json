@@ -3,10 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://rasendriyaabel.github.io/FE_HCI",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:github": "vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "lint": "eslint .",
     "preview": "vite preview"
   },
